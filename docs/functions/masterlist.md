@@ -5,10 +5,10 @@
 #### **String**
 *Nothing Yet...*
 #### **Array**
-- [isEmpty](verbs/masterlist.md?id=isempty)
-- [shuffle](verbs/masterlist.md?id=shuffle)
+- [isEmpty](functions/masterlist.md?id=isempty)
+- [shuffle](functions/masterlist.md?id=shuffle)
 #### **Number**
-- [arbintrary](verbs/masterlist.md?id=arbintrary)
+- [arbintrary](functions/masterlist.md?id=arbintrary)
 <!-- tabs:end -->
 
 ## String
