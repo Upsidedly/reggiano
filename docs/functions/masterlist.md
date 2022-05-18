@@ -5,10 +5,10 @@
 #### **String**
 *Nothing Yet...*
 #### **Array**
-- [isEmpty]()
-- [shuffle]()
+- [isEmpty](?id=isempty)
+- [shuffle](?id=shuffle)
 #### **Number**
-- [arbintrary]()
+- [arbintrary](?id=arbintrary)
 <!-- tabs:end -->
 
 ## String
