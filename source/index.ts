@@ -291,6 +291,22 @@ type main = {
      * ```
      */
     degreal(degrees: number): number,
+
+    /**
+     * Returns a boolean indicating if the provided amounts of degrees are all coterminal
+     * @param {number[]} degrees The degrees to be checked
+     * @returns {boolean} True if all degrees are coterminal, false otherwise
+     * @example ```js
+     * import { coterminal } from 'reggiano'
+     * 
+     * coterminal(0, 90, 180, 270)
+     * // => false
+     * 
+     * coterminal(0, 360, -360, -720)
+     * // => true
+     * ```
+     */
+    coterminal: (...degrees: number[]) => boolean,
 }
 
 const reggie: main = {
@@ -328,6 +344,13 @@ const reggie: main = {
         if (degrees < 0) return 360 - (degrees % -360)
         if (degrees >= 360) return (360 + degrees) % 360
         return degrees
+    },
+    coterminal: (...degrees: number[]) => {
+        let real = reggie.degreal(degrees[0])
+        for (const degree of degrees) {
+            if (!(real === reggie.degreal(degree))) return false
+        }
+        return true
     }
 }
 
