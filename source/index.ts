@@ -19,6 +19,26 @@ function inplace(array: any[]) {
     return array;
 }
 
+function copy<T extends any[] | Record<any, any>>(obj: T): T {
+      // Prevent undefined objects
+  // if (!aObject) return aObject;
+
+  let clone: any = Array.isArray(obj) ? [] : {};
+
+  let value;
+  for (const key in obj) {
+
+    // Prevent self-references to parent object
+    // if (Object.is(aObject[key], aObject)) continue;
+    
+    value = obj[key];
+
+    clone[key] = (typeof value === "object") ? copy(value) : value;
+  }
+
+  return clone;
+}
+
 function outplace(array: any[]) {
     var copy = [], n = array.length, i;
 
@@ -259,8 +279,8 @@ const reggie: main = {
     shallowcap: (text: string) => text.charAt(0).toUpperCase() + text.slice(1),
     arbintrary: (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min,
     ishuffle: inplace,
-    deepclone: structuredClone,
-    shallowclone: (obj) => { return { ...obj } },
+    deepclone: copy,
+    shallowclone: (obj) => { return Array.isArray(obj) ? [...obj] : { ...obj } },
     concat: (...arrays) => {
         return arrays.reduce((acc, curr) => {
             return [...acc, ...curr]
