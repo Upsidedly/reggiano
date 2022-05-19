@@ -15,5 +15,6 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@types/node": "^17.0.31"
-  }
+  },
+  "type": "module"
 }
