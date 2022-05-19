@@ -59,7 +59,7 @@ type main = {
     /**
  * The version of the library.
  */
-    version: '1.0.4',
+    version: '1.0.5',
     /**
      * Shallow capitalization of the provided string
      * @param {string} text The string to be capitalized
@@ -275,7 +275,7 @@ type main = {
 }
 
 const reggie: main = {
-    version: '1.0.4',
+    version: '1.0.5',
     shallowcap: (text: string) => text.charAt(0).toUpperCase() + text.slice(1),
     arbintrary: (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min,
     ishuffle: inplace,
