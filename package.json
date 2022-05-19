@@ -1,6 +1,6 @@
 {
   "name": "reggiano",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Utilitarian modules",
   "main": "dist/index.js",
   "scripts": {
