@@ -20,23 +20,23 @@ function inplace(array: any[]) {
 }
 
 function copy<T extends any[] | Record<any, any>>(obj: T): T {
-      // Prevent undefined objects
-  // if (!aObject) return aObject;
+    // Prevent undefined objects
+    // if (!aObject) return aObject;
 
-  let clone: any = Array.isArray(obj) ? [] : {};
+    let clone: any = Array.isArray(obj) ? [] : {};
 
-  let value;
-  for (const key in obj) {
+    let value;
+    for (const key in obj) {
 
-    // Prevent self-references to parent object
-    // if (Object.is(aObject[key], aObject)) continue;
-    
-    value = obj[key];
+        // Prevent self-references to parent object
+        // if (Object.is(aObject[key], aObject)) continue;
 
-    clone[key] = (typeof value === "object") ? copy(value) : value;
-  }
+        value = obj[key];
 
-  return clone;
+        clone[key] = (typeof value === "object") ? copy(value) : value;
+    }
+
+    return clone;
 }
 
 function outplace(array: any[]) {
@@ -59,7 +59,7 @@ type main = {
     /**
  * The version of the library.
  */
-    version: '1.0.5',
+    version: '1.0.7',
     /**
      * Shallow capitalization of the provided string
      * @param {string} text The string to be capitalized
@@ -272,10 +272,29 @@ type main = {
      * // => { foo: { bar: 'baz' }, qux: 'quux' }
      */
     json: (path: string) => Promise<Record<string, any>>,
+
+    /**
+     * Returns the real degrees of the positive or negative degrees provided
+     * @param {number} degrees The degrees to be converted
+     * @returns {number} The real degrees
+     * @example ```js
+     * import { degreal } from 'reggiano'
+     * 
+     * degreal(390)
+     * // => 30
+     * 
+     * degreal(-10)
+     * // => 350
+     * 
+     * degreal(90)
+     * // => 90
+     * ```
+     */
+    degreal(degrees: number): number,
 }
 
 const reggie: main = {
-    version: '1.0.5',
+    version: '1.0.7',
     shallowcap: (text: string) => text.charAt(0).toUpperCase() + text.slice(1),
     arbintrary: (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min,
     ishuffle: inplace,
@@ -304,11 +323,16 @@ const reggie: main = {
         } catch (e) {
             throw new JsonError(`Could not read JSON file at ${path}.`)
         }
+    },
+    degreal: (degrees: number) => {
+        if (degrees < 0) return 360 - (degrees % -360)
+        if (degrees >= 360) return (360 + degrees) % 360
+        return degrees
     }
 }
 
-const { version, shallowcap, arbintrary, ishuffle, deepclone, shallowclone, concat, ranbool, picksome, diagonal, shuffle, json } = reggie
+const { version, shallowcap, arbintrary, ishuffle, deepclone, shallowclone, concat, ranbool, picksome, diagonal, shuffle, json, degreal } = reggie
 
-export { version, shallowcap, arbintrary, ishuffle, deepclone, shallowclone, concat, ranbool, picksome, diagonal, shuffle, json }
+export { version, shallowcap, arbintrary, ishuffle, deepclone, shallowclone, concat, ranbool, picksome, diagonal, shuffle, json, degreal }
 
 export default reggie
