@@ -4,7 +4,7 @@
   "description": "Utilitarian modules",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"No test specified\"",
+    "test": "node .",
     "serve": "docsify serve ./docs"
   },
   "keywords": [

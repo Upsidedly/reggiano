@@ -59,7 +59,7 @@ type main = {
     /**
  * The version of the library.
  */
-    version: '1.0.8',
+    version: '1.0.9',
     /**
      * Shallow capitalization of the provided string
      * @param {string} text The string to be capitalized
@@ -305,12 +305,75 @@ type main = {
      * coterminal(0, 360, -360, -720)
      * // => true
      * ```
+     * 
+     * @deprecated Useless. Use if desired.
      */
     coterminal: (...degrees: number[]) => boolean,
+
+    // /**
+    //  * Normalizes the provided string.
+    //  * @param {string} str The string to be normalized
+    //  * @returns {string} The normalized string
+    //  * @example ```js
+    //  * import { normalize } from 'reggiano'
+    //  * 
+    //  * normalize('fóó bar')
+    //  * // => 'foo bar'
+    //  * ```
+    //  */
+
+    /**
+     * Returns the area of the circle with the provided radius
+     * @param {number} radius The radius of the circle
+     * @returns {number} The area of the circle
+     * @example ```js
+     * import { carea } from 'reggiano'
+     * 
+     * carea(2)
+     * // => 12.566370614359172
+     * ```
+     * 
+     * @deprecated It's useless, use if needed.
+     */
+    carea: (radius: number) => number,
+
+    /**
+     * Pipes the provided functions in order from left to right
+     * @param {Function[]} functions The functions to be piped
+     * @returns {Function} The piped function
+     * @example ```js
+     * import { pipe } from 'reggiano'
+     * 
+     * const add = (a, b) => a + b
+     * const square = (a) => a * a
+     * const addThenSquare = pipe(add, square)
+     * 
+     * console.log(addThenSquare(1, 2))
+     * // => 9
+     * ```
+     */
+    pipe: (...functions: Function[]) => Function,
+
+    /**
+     * Pipes the provided functions in order from right to left
+     * @param {Function[]} functions The functions to be piped
+     * @returns {Function} The piped function
+     * @example ```js
+     * import { compose } from 'reggiano'
+     * 
+     * const add = (a, b) => a + b
+     * const square = (a) => a * a
+     * 
+     * const addThenSquare = compose(square, add)
+     * 
+     * console.log(addThenSquare(1, 2))
+     * // => 9
+     */
+    compose: (...functions: Function[]) => Function,
 }
 
 const reggie: main = {
-    version: '1.0.8',
+    version: '1.0.9',
     shallowcap: (text: string) => text.charAt(0).toUpperCase() + text.slice(1),
     arbintrary: (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min,
     ishuffle: inplace,
@@ -351,11 +414,14 @@ const reggie: main = {
             if (!(real === reggie.degreal(degree))) return false
         }
         return true
-    }
+    },
+    carea: (radius: number) => Math.PI * radius ** 2,
+    pipe: (...fns: Function[]) => (x: any) => fns.reduce((v, f) => f(v), x),
+    compose: (...fns: Function[]) => (x: any) => fns.reduceRight((v, f) => f(v), x)
 }
 
-const { version, shallowcap, arbintrary, ishuffle, deepclone, shallowclone, concat, ranbool, picksome, diagonal, shuffle, json, degreal } = reggie
+const { version, shallowcap, arbintrary, ishuffle, deepclone, shallowclone, concat, ranbool, picksome, diagonal, shuffle, json, degreal, pipe } = reggie
 
-export { version, shallowcap, arbintrary, ishuffle, deepclone, shallowclone, concat, ranbool, picksome, diagonal, shuffle, json, degreal }
+export { version, shallowcap, arbintrary, ishuffle, deepclone, shallowclone, concat, ranbool, picksome, diagonal, shuffle, json, degreal, pipe }
 
 export default reggie
